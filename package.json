@@ -1,0 +1,15 @@
+{
+  "name": "scheduling-job-algorithm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:victorhsantiago/scheduling-job-algorithm.git",
+  "author": "Victor Santiago <victorhsantiago3@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^26.1.0"
+  }
+}
