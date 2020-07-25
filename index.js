@@ -21,3 +21,7 @@ const jobs = [
     duration: 6,
   },
 ]
+
+const sortByDeadline = (jobs) => jobs.sort((jobA, jobB) => Date.parse(jobA.deadline) - Date.parse(jobB.deadline))
+
+console.log(sortByDeadline(jobs))
