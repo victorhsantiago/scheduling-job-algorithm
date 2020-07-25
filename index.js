@@ -1,5 +1,6 @@
 const initialDate = '2019-11-10 09:00:00'
 const finalDate = '2019-11-11 12:00:00'
+const batchHours = 8
 
 const jobs = [
   {
@@ -22,14 +23,27 @@ const jobs = [
   },
 ]
 
-const sortByDeadline = (jobs) => jobs.sort((jobA, jobB) => Date.parse(jobA.deadline) - Date.parse(jobB.deadline))
+const sortByDeadline = (jobs) =>
+  jobs.sort((jobA, jobB) =>
+    Date.parse(jobA.deadline) - Date.parse(jobB.deadline))
 
-const workhoursAvailable = (firstDate, secondDate) => {
+const getWorkhoursAvailable = ({ firstDate, secondDate }) => {
   const millisecondsInAnHour = 1000 * 60 * 60
   const date1 = Date.parse(firstDate)
   const date2 = Date.parse(secondDate)
 
-  return (date2 - date1) / millisecondsInAnHour
+  return Math.floor((date2 - date1) / millisecondsInAnHour)
 }
 
-console.log(workhoursAvailable(initialDate, finalDate))
+const getWorkWindows = ({ workhoursAvailable, batchHours }) => ({
+  period: batchHours,
+  slots: Math.floor(workhoursAvailable / batchHours)
+})
+
+console.log(getWorkWindows({
+  workhoursAvailable: getWorkhoursAvailable({
+    firstDate: initialDate,
+    secondDate: finalDate,
+  }),
+  batchHours,
+}))
