@@ -1,4 +1,4 @@
-const initalDate = '2019-11-10 09:00:00'
+const initialDate = '2019-11-10 09:00:00'
 const finalDate = '2019-11-11 12:00:00'
 
 const jobs = [
@@ -32,4 +32,4 @@ const workhoursAvailable = (firstDate, secondDate) => {
   return (date2 - date1) / millisecondsInAnHour
 }
 
-console.log(workhoursAvailable(initalDate, finalDate))
+console.log(workhoursAvailable(initialDate, finalDate))
