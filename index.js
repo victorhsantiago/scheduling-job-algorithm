@@ -40,10 +40,36 @@ const getWorkWindows = ({ workhoursAvailable, batchHours }) => ({
   slots: Math.floor(workhoursAvailable / batchHours)
 })
 
-console.log(getWorkWindows({
-  workhoursAvailable: getWorkhoursAvailable({
-    firstDate: initialDate,
-    secondDate: finalDate,
+
+const getSchedule = ({ workWindows, jobs }) => {
+  let batch = []
+  let jobsYetToSchedule = [...jobs]
+  let partialBatch = []
+  let duration = 0
+
+  for (let j = 0; j < workWindows.slots; j++) {
+    for (let i = 0; i < jobsYetToSchedule.length; i++) {
+      duration += jobsYetToSchedule[i].duration
+      if (duration > workWindows.period) continue
+      partialBatch.push(jobsYetToSchedule[i].id)
+    }
+    batch.push(partialBatch)
+    jobsYetToSchedule.splice(0, partialBatch.length)
+    if (jobsYetToSchedule.length === 0) break
+    duration = 0
+    partialBatch = []
+  }
+
+  return batch
+}
+
+console.log(getSchedule({
+  workWindows: getWorkWindows({
+    workhoursAvailable: getWorkhoursAvailable({
+      firstDate: initialDate,
+      secondDate: finalDate,
+    }),
+    batchHours,
   }),
-  batchHours,
+  jobs: sortByDeadline(jobs),
 }))
