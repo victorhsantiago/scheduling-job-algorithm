@@ -24,4 +24,12 @@ const jobs = [
 
 const sortByDeadline = (jobs) => jobs.sort((jobA, jobB) => Date.parse(jobA.deadline) - Date.parse(jobB.deadline))
 
-console.log(sortByDeadline(jobs))
+const workhoursAvailable = (firstDate, secondDate) => {
+  const millisecondsInAnHour = 1000 * 60 * 60
+  const date1 = Date.parse(firstDate)
+  const date2 = Date.parse(secondDate)
+
+  return (date2 - date1) / millisecondsInAnHour
+}
+
+console.log(workhoursAvailable(initalDate, finalDate))
